@@ -1,0 +1,105 @@
+<p id="notice"><%= notice %></p>
+<h1>Show Voucher</h1>
+
+<br>
+<div class="row">
+
+  <div class="col-md-4">
+
+
+      <div class="row">
+        <div class="col-md-4">
+           Paid To:
+        </div>
+        <div class="col-md-6">
+          <%= @voucher.customer.name %>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-md-4">
+          Account:
+        </div>
+        <div class="col-md-6">
+          <%= @voucher.account.title %>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-md-4">
+          Department
+        </div>
+        <div class="col-md-6">
+          <%= @voucher.department.name %>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-md-4">
+          Bank:
+        </div>
+        <div class="col-md-6">
+          <%= @voucher.bank.name %>
+        </div>
+      </div>
+
+
+
+  </div>
+
+
+
+  <div class="col-md-3 col-md-offset-3">
+      PO# <%= @voucher.purchase_order %><br>
+      CN# <%= @voucher.confirmation_number %><br>
+      CK# <%= @voucher.cheque_number %><br>
+      CK Date: <%= @voucher.cheque_date %>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-2">
+          Description:
+        </div>
+        <div class="col-md-8">
+          <%= @voucher.description %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<h3>Particulars</h3>
+<table class="table table-bordered">
+  <% @voucher.particulars.each do |particular| %>
+    <tr>
+      <td><%= particular.description %></td>
+      <td><%= particular.amount %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>
+  <strong>Total:</strong>
+  <%= sum_hash(@voucher.particulars) %> Pesos
+</p>
+
+<hr>
+
+<%= image_tag @voucher.cheque_image.url, height: 300, class: 'img-rounded' %>
+
+<hr>
+
+<%= link_to 'Edit', edit_voucher_path(@voucher) %> |
+<%= link_to 'Back', vouchers_path %>
